@@ -3,36 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE AI GIRL- FUTURE ETCHED IN GLASS</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <title>$TAGL - Buy & Stake</title>
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            background: radial-gradient(circle, #000428, #004e92);
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px cyan;
+        }
+        .wallet-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px;
+            background: cyan;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: magenta;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, cyan, magenta);
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 50px;
+            transition: 0.3s;
+            margin: 10px;
+            box-shadow: 0 0 15px cyan;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid cyan;
+        }
+        th {
+            background: magenta;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Buy Section -->
     <div class="container">
-        <h1>Welcome to the AI GIRL</h1>
-        <img src="token-logo.png" alt="Token Logo" class="token-logo">
-        <p>The future is etched in glass.</p>
+        <h1>Buy $TAGL Now!</h1>
+        <p>Trade on DexScreener:</p>
+        <a class="btn" href="https://dexscreener.com/solana/2oxhczyjsgtvcyhj8thqeaveqgay4aq4skk5hhnwcxri" target="_blank">
+            Buy $TAGL
+        </a>
+    </div>
 
-        <a href="https://dexscreener.com/solana/2oxhczyjsgtvcyhj8thqeaveqgay4aq4skk5hhnwcxri" class="wallet-btn">View on DexScreener</a>
-
-        <button class="wallet-btn" onclick="connectWallet()">Connect Wallet</button>
+    <!-- Staking Section -->
+    <div class="container">
+        <h1>Stake $TAGL & Earn 5% APY</h1>
+        <p>Send your $TAGL tokens to:</p>
+        <div class="wallet-box">
+            <span id="wallet">YOUR_WALLET_ADDRESS_HERE</span>
+            <button onclick="copyWallet()">Copy</button>
+        </div>
+        <h2>📜 Staking Records</h2>
+        <table id="stakingTable">
+            <thead>
+                <tr>
+                    <th>Wallet</th>
+                    <th>Amount Staked</th>
+                    <th>Date Staked</th>
+                    <th>Rewards Earned</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
     <script>
-        async function connectWallet() {
-            if (window.solana && window.solana.isPhantom) {
-                try {
-                    const response = await window.solana.connect();
-                    alert("Connected: " + response.publicKey.toString());
-                } catch (err) {
-                    alert("Wallet connection failed!");
-                }
-            } else {
-                alert("Phantom Wallet not found. Install it to proceed now🍾.");
-                window.open("https://phantom.app/", "_blank");
+        function copyWallet() {
+            var wallet = document.getElementById("wallet").innerText;
+            navigator.clipboard.writeText(wallet);
+            alert("Wallet address copied!");
+        }
+
+        async function fetchStakingData() {
+            const sheetUrl = "YOUR_GOOGLE_SHEET_CSV_LINK_HERE";
+            try {
+                const response = await fetch(sheetUrl);
+                const data = await response.text();
+                const rows = data.split("\n").slice(1);
+                const tableBody = document.querySelector("#stakingTable tbody");
+                tableBody.innerHTML = "";
+
+                rows.forEach(row => {
+                    const cols = row.split(",");
+                    if (cols.length >= 5) {
+                        const tr = document.createElement("tr");
+                        cols.forEach(col => {
+                            const td = document.createElement("td");
+                            td.textContent = col;
+                            tr.appendChild(td);
+                        });
+                        tableBody.appendChild(tr);
+                    }
+                });
+            } catch (error) {
+                console.error("Error fetching staking data:", error);
             }
         }
+
+        fetchStakingData();
+        setInterval(fetchStakingData, 60000); // Refresh every 60 seconds
     </script>
 
 </body>
