@@ -1,99 +1,104 @@
-/* Apply smooth animations everywhere */
+/* --- Global Reset & Smooth Animations --- */
 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif; /* Sci-Fi font */
     transition: all 0.3s ease-in-out;
 }
 
+/* --- Futuristic Background Animation --- */
 body {
-    font-family: Arial, sans-serif;
+    background: radial-gradient(circle, #000428, #004e92);
+    background-size: 400% 400%;
+    animation: backgroundMove 10s infinite alternate ease-in-out;
+    color: #ffffff;
     text-align: center;
-    background: linear-gradient(135deg, #ff4081, #ff9800, #ff5722);
-    background-size: 300% 300%;
-    animation: gradientMove 6s infinite alternate;
-    margin: 0;
-    padding: 0;
     overflow-x: hidden;
 }
 
-/* Gradient background animation */
-@keyframes gradientMove {
+/* Background animation */
+@keyframes backgroundMove {
     0% { background-position: left top; }
     100% { background-position: right bottom; }
 }
 
+/* --- Sci-Fi Floating Card --- */
 .container {
     max-width: 600px;
     margin: 50px auto;
-    background: white;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(0, 255, 255, 0.5);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Animated header */
-h1 {
-    color: #ff4081;
-    font-size: 28px;
-    text-transform: uppercase;
-    animation: pulse 2s infinite alternate;
-}
-
-/* Title pulsing effect */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
-}
-
-/* Animated token logo */
-.token-logo {
-    width: 150px;
-    margin: 20px 0;
-    transition: transform 0.3s ease-in-out;
-    animation: float 3s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    animation: floatEffect 3s infinite ease-in-out;
 }
 
 /* Floating effect */
-@keyframes float {
+@keyframes floatEffect {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-5px); }
 }
 
-.token-logo:hover {
-    transform: scale(1.1) rotate(5deg);
+/* --- Sci-Fi Glowing Title --- */
+h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, cyan, magenta);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s infinite alternate;
 }
 
-/* Animated buttons */
+/* Glow effect */
+@keyframes glow {
+    0% { text-shadow: 0 0 10px cyan, 0 0 20px magenta; }
+    100% { text-shadow: 0 0 20px cyan, 0 0 30px magenta; }
+}
+
+/* --- Animated Token Logo --- */
+.token-logo {
+    width: 180px;
+    margin: 20px 0;
+    filter: drop-shadow(0 0 10px cyan);
+    transition: transform 0.3s ease-in-out;
+    animation: rotateGlow 5s infinite linear;
+}
+
+/* Rotating neon effect */
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); filter: drop-shadow(0 0 10px cyan); }
+    50% { transform: rotate(180deg); filter: drop-shadow(0 0 20px cyan); }
+    100% { transform: rotate(360deg); filter: drop-shadow(0 0 10px cyan); }
+}
+
+/* --- Sci-Fi Buttons --- */
 .buy-btn, .swap-btn, .wallet-btn {
     display: inline-block;
     padding: 12px 20px;
-    background: linear-gradient(135deg, #ff5722, #ff9800);
+    background: linear-gradient(135deg, cyan, magenta);
     color: white;
     text-decoration: none;
     font-size: 18px;
     border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     transition: 0.3s;
     margin: 10px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
-    animation: bounce 2s infinite;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    animation: glowButton 2s infinite alternate;
 }
 
-/* Button hover glow effect */
+/* Glowing hover effect */
 .buy-btn:hover, .swap-btn:hover, .wallet-btn:hover {
-    background: linear-gradient(135deg, #ff9800, #ff5722);
-    box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
+    background: linear-gradient(135deg, magenta, cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+    transform: scale(1.1);
 }
 
-/* Button bouncing effect */
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+/* Button glow effect */
+@keyframes glowButton {
+    0% { box-shadow: 0 0 10px cyan; }
+    100% { box-shadow: 0 0 20px magenta; }
 }
