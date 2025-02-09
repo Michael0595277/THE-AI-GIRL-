@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+}
+
+.token-logo {
+    width: 150px;
+    margin: 20px 0;
+}
+
+.buy-btn, .swap-btn, .wallet-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #ff5722;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.buy-btn:hover, .swap-btn:hover, .wallet-btn:hover {
+    background-color: #e64a19;
+}
