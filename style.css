@@ -1,3 +1,8 @@
+/* Apply smooth animations everywhere */
+* {
+    transition: all 0.3s ease-in-out;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -6,9 +11,10 @@ body {
     animation: gradientMove 6s infinite alternate;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
-/* Background Animation */
+/* Gradient background animation */
 @keyframes gradientMove {
     0% { background-position: left top; }
     100% { background-position: right bottom; }
@@ -21,15 +27,17 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 1.5s ease-in-out;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-/* Fade-in effect */
+/* Fade-in animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Animated header */
 h1 {
     color: #ff4081;
     font-size: 28px;
@@ -37,27 +45,28 @@ h1 {
     animation: pulse 2s infinite alternate;
 }
 
-/* Pulsating effect */
+/* Title pulsing effect */
 @keyframes pulse {
     0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
+    100% { transform: scale(1.05); }
 }
 
-p {
-    font-size: 18px;
-    color: #555;
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-/* Token logo with hover effect */
+/* Animated token logo */
 .token-logo {
     width: 150px;
     margin: 20px 0;
     transition: transform 0.3s ease-in-out;
+    animation: float 3s infinite ease-in-out;
+}
+
+/* Floating effect */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 .token-logo:hover {
-    transform: rotate(10deg) scale(1.1);
+    transform: scale(1.1) rotate(5deg);
 }
 
 /* Animated buttons */
@@ -83,7 +92,7 @@ p {
     box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
 }
 
-/* Button bounce effect */
+/* Button bouncing effect */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
