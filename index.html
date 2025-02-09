@@ -3,26 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE AI GIRL ($TAGL) - Buy Now</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
-    <script type="module" src="script.js"></script>
+    <title>THE AI GIRL- FUTURE ETCHED IN GLASS</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
-        <h1>THE AI GIRL ($TAGL)</h1>
-        <p>The meme token for the next AI chip in glass technology.</p>
-        
-        <img src="the-ai-girl-logo.png" alt="THE AI GIRL Logo" class="token-logo">
+        <h1>Welcome to the AI GIRL</h1>
+        <img src="token-logo.png" alt="Token Logo" class="token-logo">
+        <p>The future is etched in glass.</p>
 
-        <p><strong>Live Price:</strong> <span id="token-price">Loading...</span></p>
+        <a href="https://dexscreener.com/solana/2oxhczyjsgtvcyhj8thqeaveqgay4aq4skk5hhnwcxri" class="wallet-btn">View on DexScreener</a>
 
-        <button id="connect-wallet" class="wallet-btn">Connect Wallet</button>
-
-        <a href="https://dexscreener.com/solana/2oxhczyjsgtvcyhj8thqeaveqgay4aq4skk5hhnwcxri" target="_blank" class="buy-btn">
-            Buy on DexScreener
-        </a>
-        
+        <button class="wallet-btn" onclick="connectWallet()">Connect Wallet</button>
     </div>
+
+    <script>
+        async function connectWallet() {
+            if (window.solana && window.solana.isPhantom) {
+                try {
+                    const response = await window.solana.connect();
+                    alert("Connected: " + response.publicKey.toString());
+                } catch (err) {
+                    alert("Wallet connection failed!");
+                }
+            } else {
+                alert("Phantom Wallet not found. Install it to proceed now🍾.");
+                window.open("https://phantom.app/", "_blank");
+            }
+        }
+    </script>
+
 </body>
 </html>
