@@ -1,3 +1,12 @@
+/* Canvas for Animated Background */
+#animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Behind other content */
+    pointer-events: none; /* Prevents blocking clicks */
+}
+
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
