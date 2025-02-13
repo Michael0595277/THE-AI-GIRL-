@@ -112,6 +112,66 @@ header {
     gap: 15px;
 }
 
+/* Transaction Section Styling */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#transaction-form input,
+#transaction-form button {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#transaction-form input:focus,
+#transaction-form button:focus {
+    border-color: #333;
+    outline: none;
+}
+
+#transaction-form button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+#transaction-form button:hover {
+    background-color: #575757;
+}
+
+/* Disable the button during processing */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Enhanced status message */
+#transaction-status {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #4CAF50; /* Green color for success */
+    font-weight: bold;
+}
+
+#transaction-status.error {
+    color: red;
+}
+
 #transaction-form input,
 #transaction-form button {
     padding: 12px;
