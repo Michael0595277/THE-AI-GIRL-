@@ -5,49 +5,8 @@
     left: 0;
     z-index: -1; /* Behind other content */
     pointer-events: none; /* Prevents blocking clicks */
-}
-
-
-/* Transaction Section Styling */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-#transaction-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#transaction-form input,
-#transaction-form button {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#transaction-form button {
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#transaction-form button:hover {
-    background-color: #575757;
-}
-
-#transaction-status {
-    margin-top: 20px;
-    font-size: 18px;
-    color: green;
-}
-
-#transaction-status.error {
-    color: red;
+    width: 100%;
+    height: 100%;
 }
 
 /* General Styling */
@@ -56,16 +15,21 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    overflow-x: hidden;
 }
 
 header {
     background-color: #333;
-    padding: 10px;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .navbar ul {
@@ -84,12 +48,17 @@ header {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
+    font-weight: bold;
 }
 
-/* Dropdown Styling */
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
 .dropdown:hover .dropdown-content {
     display: block;
-    animation: slideDown 0.3s ease;
+    animation: slideDown 0.3s ease-out;
 }
 
 .dropdown-content {
@@ -98,6 +67,7 @@ header {
     background-color: #333;
     min-width: 160px;
     z-index: 1;
+    border-radius: 5px;
 }
 
 .dropdown-content a {
@@ -105,6 +75,8 @@ header {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 /* Hover Effect for Dropdown Links */
@@ -121,5 +93,78 @@ header {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Transaction Section Styling */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#transaction-form input,
+#transaction-form button {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#transaction-form input:focus,
+#transaction-form button:focus {
+    border-color: #333;
+    outline: none;
+}
+
+#transaction-form button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+#transaction-form button:hover {
+    background-color: #575757;
+}
+
+#transaction-status {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+}
+
+#transaction-status.error {
+    color: red;
+}
+
+/* Responsiveness for Mobile */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+    }
+
+    .navbar li {
+        padding: 10px 0;
+    }
+
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    #transaction-form input,
+    #transaction-form button {
+        width: 100%;
     }
 }
