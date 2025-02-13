@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const priceElement = document.getElementById("token-price");
     const connectWalletButton = document.getElementById("connect-wallet");
+    const sendTransactionButton = document.getElementById("send-transaction");
+    const transactionStatus = document.getElementById("transaction-status");
 
     // Fetch Token Price
     async function fetchPrice() {
@@ -31,91 +33,47 @@ document.addEventListener("DOMContentLoaded", async function () {
             alert("Solana wallet not found. Please install Phantom Wallet.");
         }
     });
-});
 
-// Animated Background
-const canvas = document.getElementById("animated-bg");
-const ctx = canvas.getContext("2d");
+    // Handle Send Transaction
+    sendTransactionButton.addEventListener("click", async (event) => {
+        event.preventDefault(); // Prevent form from submitting normally
 
-// Set canvas size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        const recipientAddress = document.getElementById("recipient").value;
+        const amount = document.getElementById("amount").value;
 
-let particles = [];
+        if (!recipientAddress || !amount) {
+            transactionStatus.textContent = "Please provide both recipient and amount.";
+            return;
+        }
 
-class Particle {
-    constructor(x, y, radius, color, velocity) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.color = color;
-        this.velocity = velocity;
-        this.alpha = 1;
-    }
+        if ("solana" in window) {
+            try {
+                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"), "confirmed");
+                const senderPublicKey = window.solana.publicKey;
+                const transaction = new solanaWeb3.Transaction();
 
-    draw() {
-        ctx.globalAlpha = this.alpha;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
-        ctx.globalAlpha = 1;
-    }
+                // Create the transaction instruction
+                const transactionInstruction = solanaWeb3.SystemProgram.transfer({
+                    fromPubkey: senderPublicKey,
+                    toPubkey: new solanaWeb3.PublicKey(recipientAddress),
+                    lamports: solanaWeb3.LAMPORTS_PER_SOL * parseFloat(amount), // Convert amount to lamports
+                });
 
-    update() {
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-        
-        if (this.x > canvas.width || this.x < 0) this.velocity.x *= -1;
-        if (this.y > canvas.height || this.y < 0) this.velocity.y *= -1;
+                transaction.add(transactionInstruction);
 
-        this.draw();
-    }
-}
+                // Sign and send the transaction
+                const signedTransaction = await window.solana.signTransaction(transaction);
+                const signature = await connection.sendRawTransaction(signedTransaction.serialize());
 
-// Generate Particles
-for (let i = 0; i < 50; i++) {
-    let radius = Math.random() * 5 + 2;
-    let x = Math.random() * canvas.width;
-    let y = Math.random() * canvas.height;
-    let color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-    let velocity = { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 };
-
-    particles.push(new Particle(x, y, radius, color, velocity));
-}
-
-// Mouse Effect
-let mouse = {
-    x: undefined,
-    y: undefined
-};
-
-window.addEventListener("mousemove", (event) => {
-    mouse.x = event.clientX;
-    mouse.y = event.clientY;
-
-    for (let i = 0; i < 5; i++) {
-        let radius = Math.random() * 4 + 1;
-        let color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        let velocity = { x: (Math.random() - 0.5) * 3, y: (Math.random() - 0.5) * 3 };
-
-        particles.push(new Particle(mouse.x, mouse.y, radius, color, velocity));
-    }
-});
-
-// Animation Loop
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((particle, index) => {
-        particle.update();
-        if (particle.alpha > 0.02) {
-            particle.alpha -= 0.01;
+                transactionStatus.textContent = `Transaction sent! Waiting for confirmation...`;
+                await connection.confirmTransaction(signature);
+                transactionStatus.textContent = `Transaction confirmed! Signature: ${signature}`;
+            } catch (error) {
+                console.error("Transaction Failed:", error);
+                transactionStatus.textContent = "Transaction failed. Please try again.";
+            }
         } else {
-            particles.splice(index, 1);
+            alert("Solana wallet not found. Please install Phantom Wallet.");
         }
     });
-    requestAnimationFrame(animate);
-}
-
-animate();
+});
