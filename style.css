@@ -7,6 +7,49 @@
     pointer-events: none; /* Prevents blocking clicks */
 }
 
+
+/* Transaction Section Styling */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#transaction-form input,
+#transaction-form button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#transaction-form button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#transaction-form button:hover {
+    background-color: #575757;
+}
+
+#transaction-status {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+}
+
+#transaction-status.error {
+    color: red;
+}
+
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
